@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RMDSettingsViewController.h"
+#import "RMDTranslateViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,10 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
+    RMDTranslateViewController *translateVC = [[RMDTranslateViewController alloc] init];
     
     UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[settingsVC];
+    tabs.viewControllers = @[translateVC, settingsVC];
     
     [self.window setRootViewController:tabs];
     [self.window makeKeyAndVisible];
