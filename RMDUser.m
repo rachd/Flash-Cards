@@ -11,11 +11,26 @@
 @implementation RMDUser
 
 + (RMDUser *)currentUser {
-    RMDUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
-    return user;
+    static RMDUser *currentUser;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        currentUser = [[self alloc] initPrivate];
+    });
+//    RMDUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
+    return currentUser;
 }
 
-+ (void)login:(NSString *)uid success:(void (^)(void))success {
+- (instancetype)initPrivate {
+    self = [super init];
+    if (self) {
+        _categories = [[NSDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
+        _cards = [[NSArray alloc] init];
+        _currentCategory = [[NSString alloc] init];
+    }
+    return self;
+}
+
++ (void)login:(void (^)(void))success {
     RMDUser *user = [[RMDUser alloc] init];
     NSData *encodedUserObject = [NSKeyedArchiver archivedDataWithRootObject:user];
     

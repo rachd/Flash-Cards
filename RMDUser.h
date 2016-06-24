@@ -16,7 +16,7 @@
 
 + (RMDUser *)currentUser;
 
-+ (void)login:(NSString *)userID success:(void (^)(void))success;
++ (void)login:(void (^)(void))success;
 - (void)logout;
 
 @end

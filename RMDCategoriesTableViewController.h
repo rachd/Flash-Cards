@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  RMDCategoriesTableViewController.h
 //  Flash Cards
 //
 //  Created by Rachel Dorn on 6/23/16.
@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import Firebase;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface RMDCategoriesTableViewController : UITableViewController
 
 @end
-

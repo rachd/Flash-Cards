@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RMDSettingsViewController.h"
 #import "RMDTranslateViewController.h"
+#import "RMDCategoriesTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,13 +19,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [FIRApp configure];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
     RMDTranslateViewController *translateVC = [[RMDTranslateViewController alloc] init];
+    RMDCategoriesTableViewController *categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[translateVC, settingsVC];
+    tabs.viewControllers = @[categoriesVC, translateVC, settingsVC];
     
     [self.window setRootViewController:tabs];
     [self.window makeKeyAndVisible];
