@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RMDSettingsViewDelegate <NSObject>
+
+@required
+- (void)changeCategory;
+
+@end
+
 @interface RMDSettingsView : UIView
 
 @property (nonatomic, strong) UIButton *changeSetButton;
 @property (nonatomic, strong) UIButton *logOutButton;
+@property (nonatomic, weak) id <RMDSettingsViewDelegate> delegate;
 
 @end

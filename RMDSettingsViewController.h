@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RMDSettingsView.h"
 
-@interface RMDSettingsViewController : UIViewController
+@interface RMDSettingsViewController : UIViewController <RMDSettingsViewDelegate>
 
 @property (nonatomic, strong) RMDSettingsView *settingsView;
 

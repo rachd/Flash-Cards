@@ -7,6 +7,7 @@
 //
 
 #import "RMDSettingsViewController.h"
+#import "RMDUser.h"
 
 @interface RMDSettingsViewController ()
 
@@ -22,6 +23,11 @@
         self.view = self.settingsView;
     }
     return self;
+}
+
+- (void)changeCategory {
+    [RMDUser currentUser].currentCategory = nil;
+    [self.tabBarController setSelectedIndex:0];
 }
 
 - (void)viewDidLoad {

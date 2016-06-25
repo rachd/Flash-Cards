@@ -27,7 +27,7 @@
     [self.changeSetButton setTitle:@"Change Card Set" forState:UIControlStateNormal];
     [self.changeSetButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.changeSetButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-//    [self.changeSetButton addTarget:self.delegate action:@selector(signInUser) forControlEvents:UIControlEventTouchUpInside];
+    [self.changeSetButton addTarget:self.delegate action:@selector(changeCategory) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.changeSetButton];
 }
 
