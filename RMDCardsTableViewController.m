@@ -35,11 +35,15 @@
         self.categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStylePlain];
         [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
     } else {
-        self.currentCategory = [[RMDUser currentUser] currentCategory];
-        self.cards = [[[RMDUser currentUser] categories] objectForKey:self.currentCategory];
-        self.allKeys = [self.cards allKeys];
-        [self.tableView reloadData];
+        [self getData];
     }
+}
+
+- (void)getData {
+    self.currentCategory = [[RMDUser currentUser] currentCategory];
+    self.cards = [[[RMDUser currentUser] getCategories] objectForKey:self.currentCategory];
+    self.allKeys = [self.cards allKeys];
+    [self.tableView reloadData];
 }
 
 - (void)addCard {
@@ -49,7 +53,8 @@
 }
 
 - (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {
-    NSLog(@"here");
+    [[RMDUser currentUser] addCard:keyValue value:objectValue];
+    [self getData];
 }
 
 - (void)didReceiveMemoryWarning {

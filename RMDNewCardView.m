@@ -45,7 +45,6 @@
 }
 
 - (void)sendCardInfo {
-    NSLog(@"in view method");
     [self.delegate setNewCard:self.keyField.text object:self.objectField.text];
     [self removeFromSuperview];
 }

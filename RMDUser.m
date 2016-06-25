@@ -8,6 +8,12 @@
 
 #import "RMDUser.h"
 
+@interface RMDUser ()
+
+@property (nonatomic, strong) NSMutableDictionary *categories;
+
+@end
+
 @implementation RMDUser
 
 + (RMDUser *)currentUser {
@@ -23,10 +29,12 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _categories = [[NSDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
+        _categories = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
     }
     return self;
 }
+
+#pragma mark - Authentication Methods
 
 + (void)login:(void (^)(void))success {
     RMDUser *user = [[RMDUser alloc] init];
@@ -38,6 +46,20 @@
 - (void)logout {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
 }
+
+#pragma mark - Data Methods
+
+- (void)addCard:(NSString *)key value:(NSString *)value {
+    NSMutableDictionary *temporaryDictionary = [NSMutableDictionary dictionaryWithDictionary:[self.categories objectForKey:self.currentCategory]];
+    [temporaryDictionary setObject:value forKey:key];
+    [self.categories setObject:temporaryDictionary forKey:self.currentCategory];
+}
+
+- (NSDictionary *)getCategories {
+    return [self.categories copy];
+}
+
+#pragma mark - Encoding Methods
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) {

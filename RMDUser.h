@@ -10,12 +10,13 @@
 
 @interface RMDUser : NSObject
 
-@property (nonatomic, strong) NSDictionary *categories;
 @property (nonatomic, strong) NSString *currentCategory;
 
 + (RMDUser *)currentUser;
 
 + (void)login:(void (^)(void))success;
 - (void)logout;
+- (void)addCard:(NSString *)key value:(NSString *)value;
+- (NSDictionary *)getCategories;
 
 @end
