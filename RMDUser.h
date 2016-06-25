@@ -17,6 +17,7 @@
 + (void)login:(void (^)(void))success;
 - (void)logout;
 - (void)addCard:(NSString *)key value:(NSString *)value;
+- (void)deleteCard:(NSString *)key;
 - (NSDictionary *)getCategories;
 
 @end

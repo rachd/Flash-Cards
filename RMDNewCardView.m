@@ -24,14 +24,14 @@
 
 - (void)setUpKeyField {
     self.keyField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 100, self.frame.size.width / 2, 40)];
-    self.keyField.placeholder = @"Word in English";
+    self.keyField.placeholder = [NSString stringWithFormat:@"Word in %@", [[RMDUser currentUser] currentCategory]];
     self.keyField.borderStyle = UITextBorderStyleRoundedRect;
     [self addSubview:self.keyField];
 }
 
 - (void)setUpObjectField {
     self.objectField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 160, self.frame.size.width / 2, 40)];
-    self.objectField.placeholder = [NSString stringWithFormat:@"Word in %@", [[RMDUser currentUser] currentCategory]];
+    self.objectField.placeholder = @"Word in English";
     self.objectField.borderStyle = UITextBorderStyleRoundedRect;
     [self addSubview:self.objectField];
 }

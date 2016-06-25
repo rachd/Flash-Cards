@@ -27,7 +27,11 @@
     
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
     WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:theConfiguration];
-    NSURL *nsurl = [NSURL URLWithString:@"https://www.google.com/"];
+    NSURL *nsurl = [NSURL URLWithString:@"https://translate.google.com/"];
+
+//TODO: set google translate to the language currently set
+//@"https://translate.google.com/?hl=en&sl=eo&tl=en"];
+    
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [webView loadRequest:nsrequest];
     [self.view addSubview:webView];

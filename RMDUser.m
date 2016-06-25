@@ -59,6 +59,12 @@
     return [self.categories copy];
 }
 
+- (void)deleteCard:(NSString *)key {
+    NSMutableDictionary *temporaryDictionary = [NSMutableDictionary dictionaryWithDictionary:[self.categories objectForKey:self.currentCategory]];
+    [temporaryDictionary removeObjectForKey:key];
+    [self.categories setObject:temporaryDictionary forKey:self.currentCategory];
+}
+
 #pragma mark - Encoding Methods
 
 - (id)initWithCoder:(NSCoder *)decoder {
