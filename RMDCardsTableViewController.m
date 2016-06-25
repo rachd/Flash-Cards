@@ -7,10 +7,14 @@
 //
 
 #import "RMDCardsTableViewController.h"
+#import "RMDUser.h"
+#import "RMDCardTableViewCell.h"
 
 @interface RMDCardsTableViewController ()
 
-@property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) NSDictionary *cards;
+@property (nonatomic, strong) NSString *currentCategory;
+@property (nonatomic, strong) NSArray *allKeys;
 
 @end
 
@@ -20,6 +24,11 @@
     [super viewDidLoad];
     
     self.tabBarItem.title = @"Cards";
+    self.currentCategory = [[RMDUser currentUser] currentCategory];
+    self.cards = [[[RMDUser currentUser] categories] objectForKey:@"Esperanto"];//self.currentCategory];
+    self.allKeys = [self.cards allKeys];
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
 }
 
@@ -31,24 +40,21 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.allKeys count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    cell.textLabel.text = [self.allKeys objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text = [self.cards objectForKey:[self.allKeys objectAtIndex:indexPath.row]];
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

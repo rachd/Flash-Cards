@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "RMDSettingsViewController.h"
 #import "RMDTranslateViewController.h"
-#import "RMDCategoriesTableViewController.h"
+#import "RMDCardsTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,10 +24,10 @@
     
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
     RMDTranslateViewController *translateVC = [[RMDTranslateViewController alloc] init];
-    RMDCategoriesTableViewController *categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[categoriesVC, translateVC, settingsVC];
+    tabs.viewControllers = @[cardsVC, translateVC, settingsVC];
     
     [self.window setRootViewController:tabs];
     [self.window makeKeyAndVisible];
