@@ -19,15 +19,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [FIRApp configure];
+    //[FIRApp configure];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
     RMDTranslateViewController *translateVC = [[RMDTranslateViewController alloc] init];
-    RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *cardNavController = [[UINavigationController alloc] initWithRootViewController:cardsVC];
+    cardNavController.tabBarItem.title = @"Cards";
+
     
     UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[cardsVC, translateVC, settingsVC];
+    tabs.viewControllers = @[cardNavController, translateVC, settingsVC];
     
     [self.window setRootViewController:tabs];
     [self.window makeKeyAndVisible];

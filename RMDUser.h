@@ -11,7 +11,6 @@
 @interface RMDUser : NSObject
 
 @property (nonatomic, strong) NSDictionary *categories;
-@property (nonatomic, strong) NSArray *cards;
 @property (nonatomic, strong) NSString *currentCategory;
 
 + (RMDUser *)currentUser;

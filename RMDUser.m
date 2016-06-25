@@ -24,8 +24,6 @@
     self = [super init];
     if (self) {
         _categories = [[NSDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
-        _cards = [[NSArray alloc] init];
-        _currentCategory = [[NSString alloc] init];
     }
     return self;
 }
@@ -44,7 +42,6 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) {
         self.categories = [decoder decodeObjectForKey:@"categories"];
-        self.cards = [decoder decodeObjectForKey:@"cards"];
         self.currentCategory = [decoder decodeObjectForKey:@"currentCategory"];
     }
     
@@ -53,14 +50,12 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.categories forKey:@"categories"];
-    [encoder encodeObject:self.cards forKey:@"cards"];
     [encoder encodeObject:self.currentCategory forKey:@"currentCategory"];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
     RMDUser *objectCopy = [[RMDUser allocWithZone:zone] init];
     [objectCopy setCategories:self.categories];
-    [objectCopy setCards:self.cards];
     [objectCopy setCurrentCategory:self.currentCategory];
     return objectCopy;
 }

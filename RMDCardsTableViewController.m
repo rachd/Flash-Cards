@@ -9,12 +9,14 @@
 #import "RMDCardsTableViewController.h"
 #import "RMDUser.h"
 #import "RMDCardTableViewCell.h"
+#import "RMDCategoriesTableViewController.h"
 
 @interface RMDCardsTableViewController ()
 
 @property (nonatomic, strong) NSDictionary *cards;
 @property (nonatomic, strong) NSString *currentCategory;
 @property (nonatomic, strong) NSArray *allKeys;
+@property (nonatomic, strong) RMDCategoriesTableViewController *categoriesVC;
 
 @end
 
@@ -23,13 +25,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBarItem.title = @"Cards";
-    self.currentCategory = [[RMDUser currentUser] currentCategory];
-    self.cards = [[[RMDUser currentUser] categories] objectForKey:@"Esperanto"];//self.currentCategory];
-    self.allKeys = [self.cards allKeys];
-    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
+    UIBarButtonItem *addCard = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
+    self.navigationItem.rightBarButtonItem = addCard;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if ([[RMDUser currentUser] currentCategory] == nil) {
+        self.categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
+    } else {
+        self.currentCategory = [[RMDUser currentUser] currentCategory];
+        self.cards = [[[RMDUser currentUser] categories] objectForKey:self.currentCategory];
+        self.allKeys = [self.cards allKeys];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)addCard {
+    RMDNewCardView *newCardView = [[RMDNewCardView alloc] initWithFrame:self.view.frame];
+    newCardView.delegate = self;
+    [self.view addSubview:newCardView];
+}
+
+- (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {
+    NSLog(@"here");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,50 +74,5 @@
     cell.detailTextLabel.text = [self.cards objectForKey:[self.allKeys objectAtIndex:indexPath.row]];
     return cell;
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

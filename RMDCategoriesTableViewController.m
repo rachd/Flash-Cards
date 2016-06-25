@@ -50,7 +50,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
-    NSLog(@"%@", [RMDUser currentUser].currentCategory);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
