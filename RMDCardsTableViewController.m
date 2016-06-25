@@ -51,7 +51,7 @@
 - (void)addCard {
     RMDNewCardView *newCardView = [[RMDNewCardView alloc] initWithFrame:self.view.frame];
     newCardView.delegate = self;
-    [self.view addSubview:newCardView];
+    [self.navigationController.view addSubview:newCardView];
 }
 
 - (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {
