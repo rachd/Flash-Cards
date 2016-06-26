@@ -10,6 +10,7 @@
 #import "RMDSettingsViewController.h"
 #import "RMDTranslateViewController.h"
 #import "RMDCardsTableViewController.h"
+#import "RMDQuizViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,13 +25,14 @@
     
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
     RMDTranslateViewController *translateVC = [[RMDTranslateViewController alloc] init];
+    RMDQuizViewController *quizVC = [[RMDQuizViewController alloc] init];
     RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *cardNavController = [[UINavigationController alloc] initWithRootViewController:cardsVC];
     cardNavController.tabBarItem.title = @"Cards";
 
     
     UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[cardNavController, translateVC, settingsVC];
+    tabs.viewControllers = @[cardNavController, quizVC, translateVC, settingsVC];
     
     [self.window setRootViewController:tabs];
     [self.window makeKeyAndVisible];

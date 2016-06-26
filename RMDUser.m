@@ -29,7 +29,7 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _categories = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
+        _categories = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You", @"Hundo" : @"Dog", @"Patro" : @"Father", @"Babili" : @"Chat", @"Folio" : @"Leaf", @"Kuiri" : @"Cook"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
     }
     return self;
 }
