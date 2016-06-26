@@ -74,19 +74,28 @@
 
 - (void)pickSixOptions {
     NSString *potentialGuessWord = [[NSString alloc] init];
-    if ([self.potentialGuessWords count] >= 6) {
+    if ([self.targetWords count] >= 6) {
         while ([self.guessWords count] < 6) {
             potentialGuessWord = [self.potentialGuessWords objectAtIndex:arc4random_uniform([self.potentialGuessWords count])];
             [self.guessWords addObject:potentialGuessWord];
             [self.potentialGuessWords removeObject:potentialGuessWord];
         }
+    } else {
+        NSLog(@"in else");
+        while([self.guessWords count] < [self.targetWords count]) {
+            NSLog(@"potential guess words: %@", self.potentialGuessWords);
+            potentialGuessWord = [self.potentialGuessWords objectAtIndex:arc4random_uniform([self.potentialGuessWords count])];
+            [self.guessWords addObject:potentialGuessWord];
+            [self.potentialGuessWords removeObject:potentialGuessWord];
+        }
     }
+    NSLog(@"%@", self.guessWords);
 }
 
 - (void)shuffleGuesses {
     NSMutableArray *temporaryArray = [NSMutableArray arrayWithArray:self.guessWords];
     NSString *temporaryString = [[NSString alloc] init];
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < [self.guessWords count]; i++) {
         temporaryString = [temporaryArray objectAtIndex:arc4random_uniform([temporaryArray count])];
         [self.guessWords replaceObjectAtIndex:i withObject:temporaryString];
         [temporaryArray removeObject:temporaryString];
@@ -112,7 +121,11 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    if ([self.targetWords count] >= 6) {
+        return 6;
+    } else {
+        return [self.targetWords count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

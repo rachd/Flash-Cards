@@ -33,7 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([[RMDUser currentUser] currentCategory] == nil) {
-        self.categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        self.categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
     } else {
         [self getData];
