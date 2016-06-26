@@ -118,6 +118,21 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     RMDQuizCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.label.text = [self.guessWords objectAtIndex:indexPath.row];
+    cell.contentView.backgroundColor = [UIColor purpleColor];
     return cell;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    RMDQuizCollectionViewCell *guessedCell = (RMDQuizCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSIndexPath *correctIndex = [NSIndexPath indexPathForItem:[self.guessWords indexOfObject:self.rightAnswer] inSection:0];
+    if ([[self.guessWords objectAtIndex:indexPath.row] isEqualToString:self.rightAnswer]) {
+        guessedCell.contentView.backgroundColor = [UIColor greenColor];
+    } else {
+        guessedCell.contentView.backgroundColor = [UIColor redColor];
+        RMDQuizCollectionViewCell *correctCell = (RMDQuizCollectionViewCell *)[collectionView cellForItemAtIndexPath:correctIndex];
+        correctCell.contentView.backgroundColor = [UIColor greenColor];
+    }
+    [self performSelector:@selector(refreshCollection) withObject:self.collectionView afterDelay:1.0];
+}
+
 @end
