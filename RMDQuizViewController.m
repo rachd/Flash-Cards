@@ -60,10 +60,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self refreshCollection];
+}
+
+- (void)refreshCollection {
     self.targetWords = [[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allKeys];
     self.potentialGuessWords = [NSMutableArray arrayWithArray:[[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allValues]];
     [self pickTargetWord];
     [self pickSixOptions];
+    [self shuffleGuesses];
     [self.collectionView reloadData];
 }
 
@@ -75,6 +80,16 @@
             [self.guessWords addObject:potentialGuessWord];
             [self.potentialGuessWords removeObject:potentialGuessWord];
         }
+    }
+}
+
+- (void)shuffleGuesses {
+    NSMutableArray *temporaryArray = [NSMutableArray arrayWithArray:self.guessWords];
+    NSString *temporaryString = [[NSString alloc] init];
+    for (int i = 0; i < 6; i++) {
+        temporaryString = [temporaryArray objectAtIndex:arc4random_uniform([temporaryArray count])];
+        [self.guessWords replaceObjectAtIndex:i withObject:temporaryString];
+        [temporaryArray removeObject:temporaryString];
     }
 }
 
