@@ -52,6 +52,7 @@
 - (void)addCard {
     RMDCardAdderViewController *cardAdderVC = [[RMDCardAdderViewController alloc] init];
     cardAdderVC.delegate = self;
+    [self setEditing:NO animated:NO];
     [self.navigationController pushViewController:cardAdderVC animated:YES];
 }
 
