@@ -10,8 +10,9 @@
 #import "RMDUser.h"
 #import "RMDCardTableViewCell.h"
 #import "RMDCategoriesTableViewController.h"
+#import "RMDCardAdderViewController.h"
 
-@interface RMDCardsTableViewController ()
+@interface RMDCardsTableViewController () <RMDCardAdderDelegate>
 
 @property (nonatomic, strong) NSDictionary *cards;
 @property (nonatomic, strong) NSString *currentCategory;
@@ -49,9 +50,9 @@
 }
 
 - (void)addCard {
-    RMDNewCardView *newCardView = [[RMDNewCardView alloc] initWithFrame:self.view.frame];
-    newCardView.delegate = self;
-    [self.navigationController.view addSubview:newCardView];
+    RMDCardAdderViewController *cardAdderVC = [[RMDCardAdderViewController alloc] init];
+    cardAdderVC.delegate = self;
+    [self.navigationController pushViewController:cardAdderVC animated:YES];
 }
 
 - (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {

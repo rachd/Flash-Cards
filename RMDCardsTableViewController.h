@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RMDNewCardView.h"
 
 
-@interface RMDCardsTableViewController : UITableViewController <RMDNewCardDelegate>
-
+@interface RMDCardsTableViewController : UITableViewController
 @end
