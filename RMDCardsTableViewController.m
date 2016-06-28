@@ -11,8 +11,9 @@
 #import "RMDCardTableViewCell.h"
 #import "RMDCategoriesTableViewController.h"
 #import "RMDCardAdderViewController.h"
+#import "RMDCategoryAdderViewController.h"
 
-@interface RMDCardsTableViewController () <RMDCardAdderDelegate>
+@interface RMDCardsTableViewController () <RMDCardAdderDelegate, RMDCardSetAdderDelegate>
 
 @property (nonatomic, strong) NSDictionary *cards;
 @property (nonatomic, strong) NSString *currentCategory;
@@ -33,12 +34,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if ([[RMDUser currentUser] currentCategory] == nil) {
-        NSLog(@"if");
         self.categoriesVC = [[RMDCategoriesTableViewController alloc] init];
         [self.navigationController pushViewController:self.categoriesVC animated:YES];
     } else {
-        NSLog(@"else");
         [self getData];
     }
 }
@@ -60,6 +60,11 @@
 
 - (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {
     [[RMDUser currentUser] addCard:keyValue value:objectValue];
+    [self getData];
+}
+
+- (void)setNewCategory:(NSString *)name {
+    [[RMDUser currentUser] addCategory:name];
     [self getData];
 }
 

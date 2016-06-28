@@ -10,7 +10,7 @@
 #import "RMDUser.h"
 #import "RMDCategoryAdderViewController.h"
 
-@interface RMDCategoriesTableViewController () <RMDCardSetAdderDelegate>
+@interface RMDCategoriesTableViewController ()
 
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) UITableView *tableView;
@@ -42,14 +42,9 @@
 
 - (void)addCardSet {
     RMDCategoryAdderViewController *cardSetAdderVC = [[RMDCategoryAdderViewController alloc] init];
-    cardSetAdderVC.delegate = self;
+    cardSetAdderVC.delegate = self.navigationController.viewControllers[0];
     [self setEditing:NO animated:NO];
     [self.navigationController pushViewController:cardSetAdderVC animated:YES];
-}
-
-- (void)setNewCategory:(NSString *)name {
-    [[RMDUser currentUser] addCategory:name];
-    NSLog(@"%@", [[RMDUser currentUser] getCategories]);
 }
 
 - (void)didReceiveMemoryWarning {
