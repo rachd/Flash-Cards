@@ -10,6 +10,7 @@
 #import "RMDUser.h"
 #import "RMDCategoryAdderViewController.h"
 #import "RMDCardsTableViewController.h"
+#import "RMDConstants.h"
 
 @interface RMDCategoriesTableViewController ()
 
@@ -22,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
+    self.view.backgroundColor = [RMDConstants backgroundColor];
     self.categories = [[[RMDUser currentUser] getCategories] allKeys];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     self.tableView.delegate = self;

@@ -11,6 +11,7 @@
 #import "RMDTranslateViewController.h"
 #import "RMDCardsTableViewController.h"
 #import "RMDQuizViewController.h"
+#import "RMDConstants.h"
 
 @interface AppDelegate ()
 
@@ -28,7 +29,7 @@
     RMDQuizViewController *quizVC = [[RMDQuizViewController alloc] init];
     RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *cardNavController = [[UINavigationController alloc] initWithRootViewController:cardsVC];
-    cardNavController.navigationBar.tintColor = [UIColor purpleColor];
+    cardNavController.navigationBar.tintColor = [RMDConstants contrastColor];
     cardNavController.tabBarItem.title = @"Cards";
 
     

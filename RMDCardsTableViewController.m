@@ -12,6 +12,7 @@
 #import "RMDCategoriesTableViewController.h"
 #import "RMDCardAdderViewController.h"
 #import "RMDCategoryAdderViewController.h"
+#import "RMDConstants.h"
 
 @interface RMDCardsTableViewController () <RMDCardAdderDelegate, RMDCardSetAdderDelegate>
 
@@ -26,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
+    self.view.backgroundColor = [RMDConstants backgroundColor];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     UIBarButtonItem *addCardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
     self.navigationItem.rightBarButtonItem = addCardButton;

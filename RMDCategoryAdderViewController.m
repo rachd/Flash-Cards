@@ -23,6 +23,11 @@
     self.view = self.cardSetAdderView;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)addCardSet {
     if (![self.cardSetAdderView.nameField.text isEqualToString:@""]) {
         [self.delegate setNewCategory:self.cardSetAdderView.nameField.text];

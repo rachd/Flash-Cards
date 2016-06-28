@@ -7,13 +7,14 @@
 //
 
 #import "RMDSettingsView.h"
+#import "RMDConstants.h"
 
 @implementation RMDSettingsView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
+        self.backgroundColor = [RMDConstants backgroundColor];
         [self setUpChangeSetButton];
         [self setUpLogOutButton];
     }
@@ -25,8 +26,7 @@
     self.changeSetButton.backgroundColor = [UIColor whiteColor];
     self.changeSetButton.layer.cornerRadius = 8;
     [self.changeSetButton setTitle:@"Change Card Set" forState:UIControlStateNormal];
-    [self.changeSetButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.changeSetButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    [self.changeSetButton setTitleColor:[RMDConstants textColor] forState:UIControlStateNormal];
     [self.changeSetButton addTarget:self.delegate action:@selector(changeCategory) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.changeSetButton];
 }
@@ -36,8 +36,7 @@
     self.logOutButton.backgroundColor = [UIColor whiteColor];
     self.logOutButton.layer.cornerRadius = 8;
     [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
-    [self.logOutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.logOutButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    [self.logOutButton setTitleColor:[RMDConstants textColor] forState:UIControlStateNormal];
 //    [self.logOutButton addTarget:self.delegate action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.logOutButton];
 }

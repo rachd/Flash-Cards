@@ -9,6 +9,7 @@
 #import "RMDQuizViewController.h"
 #import "RMDUser.h"
 #import "RMDQuizCollectionViewCell.h"
+#import "RMDConstants.h"
 
 @interface RMDQuizViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -28,7 +29,7 @@
     self = [super init];
     if (self) {
         self.tabBarItem.title = @"Quiz";
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [RMDConstants backgroundColor];
         [self setUpLabel];
         [self setUpCollectionView];
         [self setUpNoCategoryLabel];
@@ -40,7 +41,7 @@
     self.targetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
     self.targetLabel.textAlignment = NSTextAlignmentCenter;
     self.targetLabel.font = [UIFont fontWithName:@"Helvetica" size:25.0];
-    self.targetLabel.textColor = [UIColor blackColor];
+    self.targetLabel.textColor = [RMDConstants textColor];
     [self.view addSubview:self.targetLabel];
 }
 
@@ -50,7 +51,7 @@
     self.noCategoryLabel.font = [UIFont fontWithName:@"Helvetica" size:25.0];
     self.noCategoryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.noCategoryLabel.numberOfLines = 0;
-    self.noCategoryLabel.textColor = [UIColor blackColor];
+    self.noCategoryLabel.textColor = [RMDConstants textColor];
     [self.view addSubview:self.noCategoryLabel];
 }
                                
@@ -61,7 +62,7 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height - 100) collectionViewLayout:flowLayout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [RMDConstants backgroundColor];
     [self.collectionView registerClass:[RMDQuizCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 
     [self.view addSubview:self.collectionView];
@@ -153,7 +154,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     RMDQuizCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.label.text = [self.guessWords objectAtIndex:indexPath.row];
-    cell.contentView.backgroundColor = [UIColor purpleColor];
+    cell.contentView.backgroundColor = [RMDConstants contrastColor];
     return cell;
 }
 
@@ -161,11 +162,11 @@
     RMDQuizCollectionViewCell *guessedCell = (RMDQuizCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     NSIndexPath *correctIndex = [NSIndexPath indexPathForItem:[self.guessWords indexOfObject:self.rightAnswer] inSection:0];
     if ([[self.guessWords objectAtIndex:indexPath.row] isEqualToString:self.rightAnswer]) {
-        guessedCell.contentView.backgroundColor = [UIColor greenColor];
+        guessedCell.contentView.backgroundColor = [RMDConstants correctAnswerColor];
     } else {
-        guessedCell.contentView.backgroundColor = [UIColor redColor];
+        guessedCell.contentView.backgroundColor = [RMDConstants wrongAnswerColor];
         RMDQuizCollectionViewCell *correctCell = (RMDQuizCollectionViewCell *)[collectionView cellForItemAtIndexPath:correctIndex];
-        correctCell.contentView.backgroundColor = [UIColor greenColor];
+        correctCell.contentView.backgroundColor = [RMDConstants correctAnswerColor];
     }
     [self performSelector:@selector(refreshCollection) withObject:self.collectionView afterDelay:1.0];
 }
