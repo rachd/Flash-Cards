@@ -9,6 +9,7 @@
 #import "RMDCategoriesTableViewController.h"
 #import "RMDUser.h"
 #import "RMDCategoryAdderViewController.h"
+#import "RMDCardsTableViewController.h"
 
 @interface RMDCategoriesTableViewController ()
 
@@ -72,6 +73,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
+    RMDCardsTableViewController *cardsVC = self.navigationController.viewControllers[0];
+    [cardsVC getData];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

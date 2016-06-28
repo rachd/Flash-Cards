@@ -74,7 +74,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self refreshCollection];
     if ([RMDUser currentUser].currentCategory) {
-        self.noCategoryLabel.text = @"";
+        if ([self.targetWords count] > 0) {
+            self.noCategoryLabel.text = @"";
+        } else {
+            self.noCategoryLabel.text = @"Please add cards to start learning!";
+        }
     } else {
         self.noCategoryLabel.text = @"Please select a card set to start learning!";
     }
@@ -83,9 +87,13 @@
 - (void)refreshCollection {
     self.targetWords = [[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allKeys];
     self.potentialGuessWords = [NSMutableArray arrayWithArray:[[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allValues]];
-    [self pickTargetWord];
-    [self pickSixOptions];
-    [self shuffleGuesses];
+    if ([self.targetWords count] > 0) {
+        [self pickTargetWord];
+        [self pickSixOptions];
+        [self shuffleGuesses];
+    } else {
+        self.targetLabel.text = @"";
+    }
     [self.collectionView reloadData];
 }
 

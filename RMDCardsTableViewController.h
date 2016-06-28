@@ -10,4 +10,7 @@
 
 
 @interface RMDCardsTableViewController : UITableViewController
+
+- (void)getData;
+
 @end
