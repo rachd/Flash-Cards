@@ -20,7 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)cardAdderVC {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
         self.cardAdderVC = cardAdderVC;
         [self setUpKeyField];
         [self setUpValueField];
@@ -55,7 +55,7 @@
     self.submitButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 240, self.frame.size.width / 2, 40)];
     self.submitButton.layer.cornerRadius = 6.0;
     [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
-    self.submitButton.backgroundColor = [UIColor blueColor];
+    self.submitButton.backgroundColor = [UIColor purpleColor];
     [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.submitButton addTarget:self.cardAdderVC action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.submitButton];

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RMDCategoriesTableViewController : UITableViewController
+@interface RMDCategoriesTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

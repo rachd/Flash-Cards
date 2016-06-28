@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     UIBarButtonItem *addCardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
     self.navigationItem.rightBarButtonItem = addCardButton;
@@ -34,8 +34,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([[RMDUser currentUser] currentCategory] == nil) {
-        self.categoriesVC = [[RMDCategoriesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
+        self.categoriesVC = [[RMDCategoriesTableViewController alloc] init];
+        [self.navigationController pushViewController:self.categoriesVC animated:YES];
+//        [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
     } else {
         [self getData];
     }

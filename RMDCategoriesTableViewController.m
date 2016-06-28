@@ -12,6 +12,7 @@
 @interface RMDCategoriesTableViewController ()
 
 @property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -19,10 +20,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.95 green:0.66 blue:0.57 alpha:1.0];
     self.categories = [[[RMDUser currentUser] getCategories] allKeys];
-    NSLog(@"categories: %@", self.categories);
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    [self.view addSubview:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    UIBarButtonItem *blankItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
+    self.navigationItem.leftBarButtonItem = blankItem;
+    self.navigationItem.title = @"Card Sets";
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +63,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

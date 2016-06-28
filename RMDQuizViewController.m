@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UILabel *targetLabel;
+@property (nonatomic, strong) UILabel *noCategoryLabel;
 @property (nonatomic, strong) NSArray *targetWords;
 @property (nonatomic, strong) NSMutableArray *potentialGuessWords;
 @property (nonatomic, strong) NSMutableArray *guessWords;
@@ -30,6 +31,7 @@
         self.view.backgroundColor = [UIColor whiteColor];
         [self setUpLabel];
         [self setUpCollectionView];
+        [self setUpNoCategoryLabel];
     }
     return self;
 }
@@ -40,6 +42,16 @@
     self.targetLabel.font = [UIFont fontWithName:@"Helvetica" size:25.0];
     self.targetLabel.textColor = [UIColor blackColor];
     [self.view addSubview:self.targetLabel];
+}
+
+- (void)setUpNoCategoryLabel {
+    self.noCategoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, self.view.frame.size.width - 80, self.view.frame.size.height - 40)];
+    self.noCategoryLabel.textAlignment = NSTextAlignmentCenter;
+    self.noCategoryLabel.font = [UIFont fontWithName:@"Helvetica" size:25.0];
+    self.noCategoryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.noCategoryLabel.numberOfLines = 0;
+    self.noCategoryLabel.textColor = [UIColor blackColor];
+    [self.view addSubview:self.noCategoryLabel];
 }
                                
 - (void)setUpCollectionView {
@@ -61,6 +73,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self refreshCollection];
+    if ([RMDUser currentUser].currentCategory) {
+        self.noCategoryLabel.text = @"";
+    } else {
+        self.noCategoryLabel.text = @"Please select a card set to start learning!";
+    }
 }
 
 - (void)refreshCollection {
@@ -81,15 +98,12 @@
             [self.potentialGuessWords removeObject:potentialGuessWord];
         }
     } else {
-        NSLog(@"in else");
         while([self.guessWords count] < [self.targetWords count]) {
-            NSLog(@"potential guess words: %@", self.potentialGuessWords);
             potentialGuessWord = [self.potentialGuessWords objectAtIndex:arc4random_uniform([self.potentialGuessWords count])];
             [self.guessWords addObject:potentialGuessWord];
             [self.potentialGuessWords removeObject:potentialGuessWord];
         }
     }
-    NSLog(@"%@", self.guessWords);
 }
 
 - (void)shuffleGuesses {

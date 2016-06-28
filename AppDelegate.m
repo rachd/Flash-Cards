@@ -28,6 +28,7 @@
     RMDQuizViewController *quizVC = [[RMDQuizViewController alloc] init];
     RMDCardsTableViewController *cardsVC = [[RMDCardsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *cardNavController = [[UINavigationController alloc] initWithRootViewController:cardsVC];
+    cardNavController.navigationBar.tintColor = [UIColor purpleColor];
     cardNavController.tabBarItem.title = @"Cards";
 
     
