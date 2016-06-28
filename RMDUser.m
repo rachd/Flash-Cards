@@ -55,6 +55,15 @@
     [self.categories setObject:temporaryDictionary forKey:self.currentCategory];
 }
 
+- (void)addCategory:(NSString *)name {
+    [self.categories setObject:@{} forKey:name];
+    self.currentCategory = name;
+}
+
+- (void)deleteCategory:(NSString *)name {
+    [self.categories removeObjectForKey:name];
+}
+
 - (NSDictionary *)getCategories {
     return [self.categories copy];
 }

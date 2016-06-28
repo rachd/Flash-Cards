@@ -34,10 +34,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([[RMDUser currentUser] currentCategory] == nil) {
+        NSLog(@"if");
         self.categoriesVC = [[RMDCategoriesTableViewController alloc] init];
         [self.navigationController pushViewController:self.categoriesVC animated:YES];
-//        [self.navigationController presentViewController:self.categoriesVC animated:YES completion:nil];
     } else {
+        NSLog(@"else");
         [self getData];
     }
 }

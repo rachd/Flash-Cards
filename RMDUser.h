@@ -18,6 +18,8 @@
 - (void)logout;
 - (void)addCard:(NSString *)key value:(NSString *)value;
 - (void)deleteCard:(NSString *)key;
+- (void)addCategory:(NSString *)name;
+- (void)deleteCategory:(NSString *)name;
 - (NSDictionary *)getCategories;
 
 @end

@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RMDCardSetAdderDelegate <NSObject>
+
+@required
+
+- (void)setNewCategory:(NSString *)name;
+
+@end
+
 @interface RMDCategoryAdderViewController : UIViewController
+
+@property (nonatomic, weak) id <RMDCardSetAdderDelegate> delegate;
 
 @end

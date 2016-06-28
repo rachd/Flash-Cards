@@ -10,4 +10,9 @@
 
 @interface RMDCategoryAdderView : UIView
 
+@property (nonatomic, weak)UIViewController *cardSetAdderVC;
+@property (nonatomic, strong) UITextField *nameField;
+
+- (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)cardAdderVC;
+
 @end

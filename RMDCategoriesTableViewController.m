@@ -8,8 +8,9 @@
 
 #import "RMDCategoriesTableViewController.h"
 #import "RMDUser.h"
+#import "RMDCategoryAdderViewController.h"
 
-@interface RMDCategoriesTableViewController ()
+@interface RMDCategoriesTableViewController () <RMDCardSetAdderDelegate>
 
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) UITableView *tableView;
@@ -27,15 +28,28 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     [self.view addSubview:self.tableView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
+    
     UIBarButtonItem *blankItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
     self.navigationItem.leftBarButtonItem = blankItem;
     self.navigationItem.title = @"Card Sets";
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
+    
+    UIBarButtonItem *addCardSetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCardSet)];
+    self.navigationItem.rightBarButtonItem = addCardSetButton;
+}
+
+- (void)addCardSet {
+    RMDCategoryAdderViewController *cardSetAdderVC = [[RMDCategoryAdderViewController alloc] init];
+    cardSetAdderVC.delegate = self;
+    [self setEditing:NO animated:NO];
+    [self.navigationController pushViewController:cardSetAdderVC animated:YES];
+}
+
+- (void)setNewCategory:(NSString *)name {
+    [[RMDUser currentUser] addCategory:name];
+    NSLog(@"%@", [[RMDUser currentUser] getCategories]);
 }
 
 - (void)didReceiveMemoryWarning {
