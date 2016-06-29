@@ -27,6 +27,9 @@
 
 - (void)changeCategory {
     [RMDUser currentUser].currentCategory = nil;
+    UINavigationController *cardNavController = (UINavigationController *)self.tabBarController.viewControllers[0];
+    [cardNavController popToRootViewControllerAnimated:NO];
+    [cardNavController.viewControllers[0] viewWillAppear:YES];
     [self.tabBarController setSelectedIndex:0];
 }
 

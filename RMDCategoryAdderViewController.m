@@ -8,6 +8,7 @@
 
 #import "RMDCategoryAdderViewController.h"
 #import "RMDCategoryAdderView.h"
+#import "RMDUser.h"
 
 @interface RMDCategoryAdderViewController ()
 
@@ -21,11 +22,6 @@
     [super viewDidLoad];
     self.cardSetAdderView = [[RMDCategoryAdderView alloc] initWithFrame:self.view.frame viewController:self];
     self.view = self.cardSetAdderView;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addCardSet {

@@ -35,7 +35,7 @@
 }
 
 - (void)setUpNameField {
-    self.nameField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 100, self.frame.size.width / 2, 40)];
+    self.nameField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 160, self.frame.size.width / 2, 40)];
     self.nameField.borderStyle = UITextBorderStyleRoundedRect;
     self.nameField.placeholder = @"Category Name";
     self.nameField.delegate = self;
