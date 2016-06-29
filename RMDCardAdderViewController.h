@@ -12,7 +12,7 @@
 
 @required
 
-- (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue;
+- (void)setNewCard:(NSString *)word definition:(NSString *)definition;
 
 @end
 

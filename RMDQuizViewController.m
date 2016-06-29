@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *potentialGuessWords;
 @property (nonatomic, strong) NSMutableArray *guessWords;
 @property (nonatomic, strong) NSString *rightAnswer;
+@property (nonatomic, strong) RMDCategory *currentCategory;
 
 @end
 
@@ -86,8 +87,10 @@
 }
 
 - (void)refreshCollection {
-    self.targetWords = [[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allKeys];
-    self.potentialGuessWords = [NSMutableArray arrayWithArray:[[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] allValues]];
+    NSLog(@"in refresh");
+    self.currentCategory = [RMDUser currentUser].currentCategory;
+    self.targetWords = [self.currentCategory allWords];
+    self.potentialGuessWords = [NSMutableArray arrayWithArray:[self.currentCategory allDefinitions]];
     if ([self.targetWords count] > 0) {
         [self pickTargetWord];
         [self pickSixOptions];
@@ -126,8 +129,9 @@
 }
 
 - (void)pickTargetWord {
-    self.targetLabel.text = [self.targetWords objectAtIndex:arc4random_uniform([self.targetWords count])];
-    self.rightAnswer = [[[[RMDUser currentUser] getCategories] objectForKey:[RMDUser currentUser].currentCategory] objectForKey:self.targetLabel.text];
+    RMDCard *card = [self.currentCategory.cards objectAtIndex:arc4random_uniform([self.targetWords count])];
+    self.targetLabel.text = card.word;
+    self.rightAnswer = card.definition;
     [self.potentialGuessWords removeObject:self.rightAnswer];
     self.guessWords = [[NSMutableArray alloc] initWithObjects:self.rightAnswer, nil];
 }

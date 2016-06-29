@@ -16,9 +16,8 @@
 
 @interface RMDCardsTableViewController () <RMDCardAdderDelegate, RMDCardSetAdderDelegate>
 
-@property (nonatomic, strong) NSDictionary *cards;
-@property (nonatomic, strong) NSString *currentCategory;
-@property (nonatomic, strong) NSArray *allKeys;
+@property (nonatomic, strong) NSArray *cards;
+@property (nonatomic, strong) RMDCategory *currentCategory;
 @property (nonatomic, strong) RMDCategoriesTableViewController *categoriesVC;
 
 @end
@@ -29,6 +28,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RMDConstants backgroundColor];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    self.tableView.allowsSelectionDuringEditing = YES;
     UIBarButtonItem *addCardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
     self.navigationItem.rightBarButtonItem = addCardButton;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -44,11 +44,15 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self setEditing:NO];
+}
+
 - (void)getData {
     self.currentCategory = [[RMDUser currentUser] currentCategory];
-    self.navigationItem.title = [[RMDUser currentUser] currentCategory];
-    self.cards = [[[RMDUser currentUser] getCategories] objectForKey:self.currentCategory];
-    self.allKeys = [self.cards allKeys];
+    self.navigationItem.title = [self.currentCategory name];
+    self.cards = [self.currentCategory cards];
     [self.tableView reloadData];
 }
 
@@ -59,8 +63,10 @@
     [self.navigationController pushViewController:cardAdderVC animated:YES];
 }
 
-- (void)setNewCard:(NSString *)keyValue object:(NSString *)objectValue {
-    [[RMDUser currentUser] addCard:keyValue value:objectValue];
+- (void)setNewCard:(NSString *)word definition:(NSString *)definition {
+    NSLog(@"in card table");
+    RMDCard *card = [[RMDCard alloc] initWithWord:word definition:definition];
+    [[[RMDUser currentUser] currentCategory] addCard:card];
     [self getData];
 }
 
@@ -81,14 +87,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.allKeys count];
+    return [self.cards count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    cell.textLabel.text = [self.allKeys objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [self.cards objectForKey:[self.allKeys objectAtIndex:indexPath.row]];
+    RMDCard *card = [self.cards objectAtIndex:indexPath.row];
+    cell.textLabel.text = card.word;
+    cell.detailTextLabel.text = card.definition;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -98,10 +105,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[RMDUser currentUser] deleteCard:[self.allKeys objectAtIndex:indexPath.row]];
+    RMDCard *card = [self.cards objectAtIndex:indexPath.row];
+    [[RMDUser currentUser].currentCategory deleteCard:card];
     [self getData];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        NSLog(@"editing");
+    }
+}
 //TODO: add edit actions for row at index path
 
 @end

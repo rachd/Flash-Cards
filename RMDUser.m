@@ -7,10 +7,11 @@
 //
 
 #import "RMDUser.h"
+#import "RMDCard.h"
 
 @interface RMDUser ()
 
-@property (nonatomic, strong) NSMutableDictionary *categories;
+@property (nonatomic, strong) NSMutableArray *categories;
 
 @end
 
@@ -29,7 +30,8 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _categories = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You", @"Hundo" : @"Dog", @"Patro" : @"Father", @"Babili" : @"Chat", @"Folio" : @"Leaf", @"Kuiri" : @"Cook"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
+        _categories = [[NSMutableArray alloc] init];
+//        _categories = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@{@"Mi": @"I", @"Vi" : @"You", @"Hundo" : @"Dog", @"Patro" : @"Father", @"Babili" : @"Chat", @"Folio" : @"Leaf", @"Kuiri" : @"Cook"}, @"Esperanto", @{@"Hola" : @"Hello"}, @"Spanish", nil];
     }
     return self;
 }
@@ -49,29 +51,18 @@
 
 #pragma mark - Data Methods
 
-- (void)addCard:(NSString *)key value:(NSString *)value {
-    NSMutableDictionary *temporaryDictionary = [NSMutableDictionary dictionaryWithDictionary:[self.categories objectForKey:self.currentCategory]];
-    [temporaryDictionary setObject:value forKey:key];
-    [self.categories setObject:temporaryDictionary forKey:self.currentCategory];
-}
-
 - (void)addCategory:(NSString *)name {
-    [self.categories setObject:@{} forKey:name];
-    self.currentCategory = name;
+    RMDCategory *category = [[RMDCategory alloc] initWithName:name];
+    [self.categories addObject:category];
+    self.currentCategory = category;
 }
 
-- (void)deleteCategory:(NSString *)name {
-    [self.categories removeObjectForKey:name];
+- (void)deleteCategory:(RMDCategory *)category {
+    [self.categories removeObject:category];
 }
 
-- (NSDictionary *)getCategories {
+- (NSArray *)getCategories {
     return [self.categories copy];
-}
-
-- (void)deleteCard:(NSString *)key {
-    NSMutableDictionary *temporaryDictionary = [NSMutableDictionary dictionaryWithDictionary:[self.categories objectForKey:self.currentCategory]];
-    [temporaryDictionary removeObjectForKey:key];
-    [self.categories setObject:temporaryDictionary forKey:self.currentCategory];
 }
 
 #pragma mark - Encoding Methods

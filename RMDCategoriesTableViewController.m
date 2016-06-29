@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RMDConstants backgroundColor];
-    self.categories = [[[RMDUser currentUser] getCategories] allKeys];
+    self.categories = [[RMDUser currentUser] getCategories];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     self.tableView.backgroundColor = [RMDConstants backgroundColor];
     self.tableView.delegate = self;
@@ -67,8 +67,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
-    
-    cell.textLabel.text = [self.categories objectAtIndex:indexPath.row];
+    RMDCategory *category = [self.categories objectAtIndex:indexPath.row];
+    cell.textLabel.text = category.name;
     
     return cell;
 }

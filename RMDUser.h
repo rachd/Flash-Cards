@@ -7,19 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RMDCategory.h"
 
 @interface RMDUser : NSObject
 
-@property (nonatomic, strong) NSString *currentCategory;
+@property (nonatomic, strong) RMDCategory *currentCategory;
 
 + (RMDUser *)currentUser;
 
 + (void)login:(void (^)(void))success;
 - (void)logout;
-- (void)addCard:(NSString *)key value:(NSString *)value;
-- (void)deleteCard:(NSString *)key;
 - (void)addCategory:(NSString *)name;
 - (void)deleteCategory:(NSString *)name;
-- (NSDictionary *)getCategories;
+- (NSArray *)getCategories;
 
 @end

@@ -17,6 +17,14 @@
 
 @implementation RMDCardAdderViewController
 
+- (instancetype)initWithNew:(BOOL)new {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cardAdderView = [[RMDCardAdderView alloc] initWithFrame:self.view.frame viewController:self];
@@ -25,7 +33,7 @@
 
 - (void)addCard {
     if (![self.cardAdderView.keyField.text isEqualToString:@""] && ![self.cardAdderView.valueField.text isEqualToString:@""]) {
-        [self.delegate setNewCard:self.cardAdderView.keyField.text object:self.cardAdderView.valueField.text];
+        [self.delegate setNewCard:self.cardAdderView.keyField.text definition:self.cardAdderView.valueField.text];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
