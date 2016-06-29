@@ -37,7 +37,7 @@
 }
 
 - (void)setUpKeyField {
-    self.keyField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 100, self.frame.size.width / 2, 40)];
+    self.keyField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 100, (self.frame.size.width * 3) / 4, 40)];
     self.keyField.borderStyle = UITextBorderStyleRoundedRect;
     self.keyField.placeholder = [NSString stringWithFormat:@"Word in %@", [RMDUser currentUser].currentCategory];
     self.keyField.delegate = self;
@@ -45,7 +45,7 @@
 }
 
 - (void)setUpValueField {
-    self.valueField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 160, self.frame.size.width / 2, 40)];
+    self.valueField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 160, (self.frame.size.width * 3) / 4, 40)];
     self.valueField.borderStyle = UITextBorderStyleRoundedRect;
     self.valueField.placeholder = @"Word in English";
     self.valueField.delegate = self;

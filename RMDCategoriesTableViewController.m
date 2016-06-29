@@ -26,6 +26,7 @@
     self.view.backgroundColor = [RMDConstants backgroundColor];
     self.categories = [[[RMDUser currentUser] getCategories] allKeys];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView.backgroundColor = [RMDConstants backgroundColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
