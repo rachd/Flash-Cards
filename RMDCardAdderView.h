@@ -11,8 +11,8 @@
 @interface RMDCardAdderView : UIView
 
 @property (nonatomic, weak)UIViewController *cardAdderVC;
-@property (nonatomic, strong) UITextField *keyField;
-@property (nonatomic, strong) UITextField *valueField;
+@property (nonatomic, strong) UITextField *wordField;
+@property (nonatomic, strong) UITextField *definitionField;
 
 - (instancetype)initWithFrame:(CGRect)frame viewController:(UIViewController *)cardAdderVC;
 

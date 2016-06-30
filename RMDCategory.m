@@ -29,7 +29,6 @@
 }
 
 - (void)addCard:(RMDCard *)card {
-    NSLog(@"in category");
     [self.cards addObject:card];
     [self.words addObject:card.word];
     [self.definitions addObject:card.definition];

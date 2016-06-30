@@ -64,7 +64,6 @@
 }
 
 - (void)setNewCard:(NSString *)word definition:(NSString *)definition {
-    NSLog(@"in card table");
     RMDCard *card = [[RMDCard alloc] initWithWord:word definition:definition];
     [[[RMDUser currentUser] currentCategory] addCard:card];
     [self getData];
@@ -112,7 +111,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editing) {
-        NSLog(@"editing");
+        RMDCard *card = [self.cards objectAtIndex:indexPath.row];
+        RMDCardAdderViewController *adderVC = [[RMDCardAdderViewController alloc] init];
+        adderVC.card = card;
+        [self.navigationController pushViewController:adderVC animated:YES];
     }
 }
 //TODO: add edit actions for row at index path

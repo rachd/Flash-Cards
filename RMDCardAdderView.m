@@ -23,8 +23,8 @@
     if (self) {
         self.backgroundColor = [RMDConstants backgroundColor];
         self.cardAdderVC = cardAdderVC;
-        [self setUpKeyField];
-        [self setUpValueField];
+        [self setUpWordField];
+        [self setUpDefinitionField];
         [self setUpSubmitButton];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -36,20 +36,20 @@
     return self;
 }
 
-- (void)setUpKeyField {
-    self.keyField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 100, (self.frame.size.width * 3) / 4, 40)];
-    self.keyField.borderStyle = UITextBorderStyleRoundedRect;
-    self.keyField.placeholder = @"Word";
-    self.keyField.delegate = self;
-    [self addSubview:self.keyField];
+- (void)setUpWordField {
+    self.wordField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 100, (self.frame.size.width * 3) / 4, 40)];
+    self.wordField.borderStyle = UITextBorderStyleRoundedRect;
+    self.wordField.placeholder = @"Word";
+    self.wordField.delegate = self;
+    [self addSubview:self.wordField];
 }
 
-- (void)setUpValueField {
-    self.valueField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 160, (self.frame.size.width * 3) / 4, 40)];
-    self.valueField.borderStyle = UITextBorderStyleRoundedRect;
-    self.valueField.placeholder = @"Definition";
-    self.valueField.delegate = self;
-    [self addSubview:self.valueField];
+- (void)setUpDefinitionField {
+    self.definitionField = [[UITextField alloc] initWithFrame:CGRectMake(self.frame.size.width / 8, 160, (self.frame.size.width * 3) / 4, 40)];
+    self.definitionField.borderStyle = UITextBorderStyleRoundedRect;
+    self.definitionField.placeholder = @"Definition";
+    self.definitionField.delegate = self;
+    [self addSubview:self.definitionField];
 }
 
 - (void)setUpSubmitButton {
@@ -63,8 +63,8 @@
 }
 
 -(void)dismissKeyboard {
-    [self.keyField resignFirstResponder];
-    [self.valueField resignFirstResponder];
+    [self.wordField resignFirstResponder];
+    [self.definitionField resignFirstResponder];
 }
 
 @end

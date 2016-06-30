@@ -87,7 +87,6 @@
 }
 
 - (void)refreshCollection {
-    NSLog(@"in refresh");
     self.currentCategory = [RMDUser currentUser].currentCategory;
     self.targetWords = [self.currentCategory allWords];
     self.potentialGuessWords = [NSMutableArray arrayWithArray:[self.currentCategory allDefinitions]];
