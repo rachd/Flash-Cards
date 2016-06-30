@@ -23,17 +23,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getData];
     self.view.backgroundColor = [RMDConstants backgroundColor];
-    self.categories = [[RMDUser currentUser] getCategories];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     self.tableView.backgroundColor = [RMDConstants backgroundColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.allowsSelectionDuringEditing = YES;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     [self.view addSubview:self.tableView];
     
-    UIBarButtonItem *blankItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
-    self.navigationItem.leftBarButtonItem = blankItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.title = @"Card Sets";
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -48,6 +48,18 @@
     cardSetAdderVC.delegate = self.navigationController.viewControllers[0];
     [self setEditing:NO animated:NO];
     [self.navigationController pushViewController:cardSetAdderVC animated:YES];
+}
+
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    if (editing) {
+        [self.tableView setEditing:YES animated:YES];
+    }
+}
+
+- (void)getData {
+    self.categories = [[RMDUser currentUser] getCategories];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,11 +85,30 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return true;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
     RMDCardsTableViewController *cardsVC = self.navigationController.viewControllers[0];
     [cardsVC getData];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    RMDCategory *category = [self.categories objectAtIndex:indexPath.row];
+    [[RMDUser currentUser] deleteCategory:category];
+    [self getData];
+}
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (self.editing) {
+//        RMDCard *card = [self.cards objectAtIndex:indexPath.row];
+//        RMDCardAdderViewController *adderVC = [[RMDCardAdderViewController alloc] init];
+//        adderVC.card = card;
+//        [self.navigationController pushViewController:adderVC animated:YES];
+//    }
+//}
 
 @end

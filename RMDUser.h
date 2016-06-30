@@ -18,7 +18,7 @@
 + (void)login:(void (^)(void))success;
 - (void)logout;
 - (void)addCategory:(NSString *)name;
-- (void)deleteCategory:(NSString *)name;
+- (void)deleteCategory:(RMDCategory *)category;
 - (NSArray *)getCategories;
 
 @end

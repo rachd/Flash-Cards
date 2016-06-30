@@ -117,6 +117,5 @@
         [self.navigationController pushViewController:adderVC animated:YES];
     }
 }
-//TODO: add edit actions for row at index path
 
 @end
