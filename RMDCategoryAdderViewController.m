@@ -21,12 +21,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cardSetAdderView = [[RMDCategoryAdderView alloc] initWithFrame:self.view.frame viewController:self];
+    if (self.category) {
+        self.cardSetAdderView.nameField.text = self.category.name;
+    }
     self.view = self.cardSetAdderView;
 }
 
 - (void)addCardSet {
     if (![self.cardSetAdderView.nameField.text isEqualToString:@""]) {
-        [self.delegate setNewCategory:self.cardSetAdderView.nameField.text];
+        if (self.category) {
+            self.category.name = self.cardSetAdderView.nameField.text;
+        } else {
+            [self.delegate setNewCategory:self.cardSetAdderView.nameField.text];
+        }
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

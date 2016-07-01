@@ -8,6 +8,7 @@
 
 #import "RMDCardAdderViewController.h"
 #import "RMDCardAdderView.h"
+#import "RMDUser.h"
 
 @interface RMDCardAdderViewController ()
 

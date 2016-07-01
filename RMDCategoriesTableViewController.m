@@ -43,6 +43,11 @@
     self.navigationItem.rightBarButtonItem = addCardSetButton;
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.tableView setEditing:NO];
+}
+
 - (void)addCardSet {
     RMDCategoryAdderViewController *cardSetAdderVC = [[RMDCategoryAdderViewController alloc] init];
     cardSetAdderVC.delegate = self.navigationController.viewControllers[0];
@@ -59,6 +64,7 @@
 
 - (void)getData {
     self.categories = [[RMDUser currentUser] getCategories];
+    [self.tableView setEditing:NO];
     [self.tableView reloadData];
 }
 
@@ -90,10 +96,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
-    RMDCardsTableViewController *cardsVC = self.navigationController.viewControllers[0];
-    [cardsVC getData];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.tableView.editing) {
+        RMDCategory *category = [self.categories objectAtIndex:indexPath.row];
+        RMDCategoryAdderViewController *adderVC = [[RMDCategoryAdderViewController alloc] init];
+        adderVC.category = category;
+        [self.navigationController pushViewController:adderVC animated:YES];
+    } else {
+        [RMDUser currentUser].currentCategory = [self.categories objectAtIndex:indexPath.row];
+        RMDCardsTableViewController *cardsVC = self.navigationController.viewControllers[0];
+        [cardsVC getData];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,14 +114,5 @@
     [[RMDUser currentUser] deleteCategory:category];
     [self getData];
 }
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.editing) {
-//        RMDCard *card = [self.cards objectAtIndex:indexPath.row];
-//        RMDCardAdderViewController *adderVC = [[RMDCardAdderViewController alloc] init];
-//        adderVC.card = card;
-//        [self.navigationController pushViewController:adderVC animated:YES];
-//    }
-//}
 
 @end
