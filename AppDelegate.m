@@ -12,8 +12,11 @@
 #import "RMDCardsTableViewController.h"
 #import "RMDQuizViewController.h"
 #import "RMDConstants.h"
+#import "RMDSignInViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) UITabBarController *tabs;
 
 @end
 
@@ -33,10 +36,10 @@
     cardNavController.tabBarItem.title = @"Cards";
 
     
-    UITabBarController *tabs = [[UITabBarController alloc] init];
-    tabs.viewControllers = @[cardNavController, quizVC, translateVC, settingsVC];
+    self.tabs = [[UITabBarController alloc] init];
+    self.tabs.viewControllers = @[cardNavController, quizVC, translateVC, settingsVC];
     
-    [self.window setRootViewController:tabs];
+    [self.window setRootViewController:self.tabs];
     [self.window makeKeyAndVisible];
 
     return YES;
@@ -53,7 +56,8 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    RMDSignInViewController *signInVC = [[RMDSignInViewController alloc] init];
+    [self.tabs presentViewController:signInVC animated:YES completion:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
