@@ -38,7 +38,7 @@
     NSLog(@"%@", user);
     if (user != nil) {
         NSLog(@"there is a user");
-//        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     } else {
         NSLog(@"there is not a user");
     }
@@ -50,41 +50,39 @@
 }
 
 - (void)signInUser {
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    NSString *email = self.signInView.emailField.text;
-//    NSString *password = self.signInView.passwordField.text;
-//    MRProgressOverlayView *overlayView = [MRProgressOverlayView showOverlayAddedTo:self.view animated:YES];
-//    overlayView.tintColor = [UIColor colorWithRed:1.0 green:0.2 blue:0.6 alpha:1.0];
-//    [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-//        if (error) {
-//            [self presentAlertWithTitle:@"Error" message:@"Could not register user. Ensure a valid email and internet connection and try again."];
-//            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-//        } else {
-//            [RMDUser login:[NSString stringWithFormat:@"%@", user.uid] success:^(void) {
-//                NSLog(@"in signin vc %lu", (unsigned long)[[RMDUser currentUser].facts count]);
-//                [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-//                [self dismissViewControllerAnimated:YES completion:nil];
-//            }];
-//        }
-//    }];
+    NSString *email = self.signInView.emailField.text;
+    NSString *password = self.signInView.passwordField.text;
+    [MRProgressOverlayView showOverlayAddedTo:self.view animated:YES];
+    [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        if (error) {
+            [self presentAlertWithTitle:@"Error" message:@"Could not register user. Ensure a valid email and internet connection and try again."];
+            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+        } else {
+            [RMDUser login:^(void) {
+                [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }
+    }];
 }
 
 - (void)registerUser {
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    NSString *email = self.signInView.emailField.text;
-//    NSString *password = self.signInView.passwordField.text;
-//    
+    NSString *email = self.signInView.emailField.text;
+    NSString *password = self.signInView.passwordField.text;
+//
 //    NSMutableArray *facts = [[NSMutableArray alloc] init];
-//    MRProgressOverlayView *overlayView = [MRProgressOverlayView showOverlayAddedTo:self.view animated:YES];
-//    overlayView.tintColor = [UIColor colorWithRed:1.0 green:0.2 blue:0.6 alpha:1.0];
-//    [[FIRAuth auth] createUserWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-//        if (error) {
-//            [self presentAlertWithTitle:@"Error" message:@"Could not register user. Ensure a valid email and internet connection and try again."];
-//            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-//        } else {
-//            [self retrieveAllFacts:facts user:user];
-//        }
-//    }];
+    [MRProgressOverlayView showOverlayAddedTo:self.view animated:YES];
+    [[FIRAuth auth] createUserWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        if (error) {
+            [self presentAlertWithTitle:@"Error" message:@"Could not register user. Ensure a valid email and internet connection and try again."];
+            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+        } else {
+            [RMDUser login:^{
+                [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }
+    }];
 }
 
 //- (void)retrieveAllFacts:(NSMutableArray *)factsArray user:(FIRUser *)user {

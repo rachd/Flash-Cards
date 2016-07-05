@@ -43,6 +43,7 @@
     NSData *encodedUserObject = [NSKeyedArchiver archivedDataWithRootObject:user];
     
     [[NSUserDefaults standardUserDefaults] setObject:encodedUserObject forKey:@"user"];
+    success();
 }
 
 - (void)logout {
