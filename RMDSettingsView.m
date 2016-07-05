@@ -37,7 +37,7 @@
     self.logOutButton.layer.cornerRadius = 8;
     [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
     [self.logOutButton setTitleColor:[RMDConstants textColor] forState:UIControlStateNormal];
-//    [self.logOutButton addTarget:self.delegate action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
+    [self.logOutButton addTarget:self.delegate action:@selector(logOutUser) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.logOutButton];
 }
 

@@ -12,6 +12,7 @@
 
 @required
 - (void)changeCategory;
+- (void)logOutUser;
 
 @end
 

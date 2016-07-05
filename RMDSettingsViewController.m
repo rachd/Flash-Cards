@@ -8,6 +8,8 @@
 
 #import "RMDSettingsViewController.h"
 #import "RMDUser.h"
+#import "RMDSignInViewController.h"
+@import Firebase;
 
 @interface RMDSettingsViewController ()
 
@@ -31,6 +33,16 @@
     [cardNavController popToRootViewControllerAnimated:NO];
     [cardNavController.viewControllers[0] viewWillAppear:YES];
     [self.tabBarController setSelectedIndex:0];
+}
+
+- (void)logOutUser {
+    NSError *error;
+    [[FIRAuth auth] signOut:&error];
+    if (!error) {
+        [[RMDUser currentUser] logout];
+        RMDSignInViewController *signInVC = [[RMDSignInViewController alloc] init];
+        [self.tabBarController presentViewController:signInVC animated:YES completion:nil];
+    }
 }
 
 - (void)viewDidLoad {

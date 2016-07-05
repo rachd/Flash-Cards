@@ -24,7 +24,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //[FIRApp configure];
+    [FIRApp configure];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     RMDSettingsViewController *settingsVC = [[RMDSettingsViewController alloc] init];
@@ -56,8 +56,8 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    RMDSignInViewController *signInVC = [[RMDSignInViewController alloc] init];
-    [self.tabs presentViewController:signInVC animated:YES completion:nil];
+//    RMDSignInViewController *signInVC = [[RMDSignInViewController alloc] init];
+//    [self.tabs presentViewController:signInVC animated:YES completion:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

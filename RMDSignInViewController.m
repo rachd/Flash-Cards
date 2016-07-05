@@ -34,13 +34,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-//    FIRUser *user = [FIRAuth auth].currentUser;
-//    
-//    if (user != nil) {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    NSLog(@"%@", user);
+    if (user != nil) {
+        NSLog(@"there is a user");
 //        [self dismissViewControllerAnimated:NO completion:nil];
-//    } else {
-//        // No user is signed in.
-//    }
+    } else {
+        NSLog(@"there is not a user");
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
