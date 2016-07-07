@@ -38,10 +38,11 @@
 
 #pragma mark - Authentication Methods
 
-+ (void)login:(void (^)(void))success {
++ (void)login:(NSArray *)categories success:(void (^)(void))success {
     RMDUser *user = [[RMDUser alloc] init];
     NSData *encodedUserObject = [NSKeyedArchiver archivedDataWithRootObject:user];
     
+    user.categories = [NSMutableArray arrayWithArray:categories];
     [[NSUserDefaults standardUserDefaults] setObject:encodedUserObject forKey:@"user"];
     success();
 }

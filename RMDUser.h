@@ -15,7 +15,7 @@
 
 + (RMDUser *)currentUser;
 
-+ (void)login:(void (^)(void))success;
++ (void)login:(NSArray *)categories success:(void (^)(void))success;
 - (void)logout;
 - (void)addCategory:(NSString *)name;
 - (void)deleteCategory:(RMDCategory *)category;
