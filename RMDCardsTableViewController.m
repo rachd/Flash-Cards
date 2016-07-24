@@ -12,7 +12,9 @@
 #import "RMDCategoriesTableViewController.h"
 #import "RMDCardAdderViewController.h"
 #import "RMDCategoryAdderViewController.h"
+#import "RMDSignInViewController.h"
 #import "RMDConstants.h"
+@import Firebase;
 
 @interface RMDCardsTableViewController () <RMDCardAdderDelegate, RMDCardSetAdderDelegate>
 
@@ -36,12 +38,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([[RMDUser currentUser] currentCategory] == nil) {
-        self.categoriesVC = [[RMDCategoriesTableViewController alloc] init];
-        [self.navigationController pushViewController:self.categoriesVC animated:YES];
-    } else {
-        [self getData];
-    }
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth,
+                                                    FIRUser *_Nullable user) {
+        if (user != nil) {
+            if ([[RMDUser currentUser] currentCategory] == nil) {
+                self.categoriesVC = [[RMDCategoriesTableViewController alloc] init];
+                [self.navigationController pushViewController:self.categoriesVC animated:YES];
+            } else {
+                [self getData];
+            }
+        } else {
+            RMDSignInViewController *signInVC = [[RMDSignInViewController alloc] init];
+            [self.tabBarController presentViewController:signInVC animated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
