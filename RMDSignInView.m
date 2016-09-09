@@ -7,6 +7,7 @@
 //
 
 #import "RMDSignInView.h"
+#import "RMDConstants.h"
 
 @interface RMDSignInView ()
 
@@ -20,7 +21,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:1.0 green:0.8 blue:0.4 alpha:1.0];
+        self.backgroundColor = [RMDConstants backgroundColor];
         [self setUpEmailField];
         [self setUpPasswordField];
         [self setUpSubmitButton];
@@ -46,7 +47,7 @@
 
 - (void)setUpSubmitButton {
     self.submitButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 220, self.frame.size.width / 2, 40)];
-    self.submitButton.backgroundColor = [UIColor colorWithRed:1.0 green:0.2 blue:0.6 alpha:1.0];
+    self.submitButton.backgroundColor = [RMDConstants contrastColor];
     self.submitButton.layer.cornerRadius = 8;
     [self.submitButton setTitle:@"Sign In" forState:UIControlStateNormal];
     [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -63,7 +64,7 @@
     [self addSubview:registerLabel];
     
     self.registerButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 4, 370, self.frame.size.width / 2, 40)];
-    self.registerButton.backgroundColor = [UIColor colorWithRed:1.0 green:0.2 blue:0.6 alpha:1.0];
+    self.registerButton.backgroundColor = [RMDConstants contrastColor];
     self.registerButton.layer.cornerRadius = 8;
     [self.registerButton setTitle:@"Register" forState:UIControlStateNormal];
     [self.registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
