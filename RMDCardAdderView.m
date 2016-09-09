@@ -41,6 +41,7 @@
     self.wordField.borderStyle = UITextBorderStyleRoundedRect;
     self.wordField.placeholder = @"Word";
     self.wordField.delegate = self;
+    self.wordField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.wordField];
 }
 
@@ -49,6 +50,7 @@
     self.definitionField.borderStyle = UITextBorderStyleRoundedRect;
     self.definitionField.placeholder = @"Definition";
     self.definitionField.delegate = self;
+    self.definitionField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.definitionField];
 }
 

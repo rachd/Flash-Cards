@@ -39,6 +39,7 @@
     self.nameField.borderStyle = UITextBorderStyleRoundedRect;
     self.nameField.placeholder = @"Category Name";
     self.nameField.delegate = self;
+    self.nameField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.nameField];
 }
 

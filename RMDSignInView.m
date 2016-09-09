@@ -34,6 +34,8 @@
     self.emailField = [[UITextField alloc] initWithFrame:CGRectMake(20, 100, self.frame.size.width - 40, 40)];
     self.emailField.placeholder = @"Email Address";
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.emailField];
 }
 
@@ -42,6 +44,8 @@
     self.passwordField.placeholder = @"Password";
     self.passwordField.secureTextEntry = YES;
     self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
+    self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.passwordField];
 }
 
